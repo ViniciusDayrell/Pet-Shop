@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetShop Amigo Fiel-Agendamento</title>
+</head>
+<body>
+     <header>
+        <h1>Petshop Amigo Fiel</h1>
+        <p>Cuidando do seu melhor amigo com muito carinho</p>
+
+        <nav>
+            <a href="index.html">Início</a>
+            <a href="agendamento.html">Agendar</a>
+        </nav>
+    </header>
+
+    <main>
+        <h2>Agendar Horário de Atendimento</h2>
+        
+        <form action="">
+            <label for="nomeAnimal">Nome do Animal</label><br>
+            <input type="text" id="nomeAnimal" name="nomeAnimal" required><br><br>
+
+
+            <label for="especie">Espécie</label><br>
+            <select name="especie" id="especie">
+                <option value="">Selecione</option>
+                <option value="cachorro">Cachorro</option>
+                <option value="gato">Gato</option>
+                <option value="outro">Outro</option>
+            </select><br><br>
+
+            <label for="nomeDono">Nome do Dono</label><br>
+            <input type="text" name="nomeDono" id="nomeDono" required><br><br>
+
+            <label for="email">Email</label><br>
+            <input type="email" name="email" id="email" required><br><br>
+
+            <label for="horario">Horário Desejado</label><br>
+            <input type="datetime-local" name="horario" id="horario" required><br><br>
+        </form>
+    </main>
+</body>
+</html>

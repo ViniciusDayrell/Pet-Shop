@@ -1,0 +1,124 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: justify;
+
+}
+
+html,
+body{ 
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+main{
+    padding: 20px;
+    flex: 1;
+    width: 80%;
+    margin: 0 auto;
+
+    /* border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+#cabecalho{
+    background: url("../IMAGENS/image.png") no-repeat center center / cover;
+
+    position: relative;
+    height: 300px;
+}
+
+#titulo-principal{
+    margin: 0 auto;
+    margin-top: 25px;
+    
+}
+
+h1{
+    font-size: 50px;
+    margin-bottom: 15px;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
+
+#titulo-principal h3{
+    font-size: 25px;
+    text-align: center;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.9);
+}
+
+#nav-bar{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    padding: 12px 0;
+}
+
+#nav-bar a{
+    text-decoration: none;
+    color: #dcdcdc;
+    margin: 0 20px;
+    padding: 6px 12px;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+#nav-bar a:hover{
+    color: #fff;
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+#nav-bar a:active{
+    background-color: black;
+}
+
+.titulos-h2{
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+
+.texto p:first-of-type{
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+#servicos li{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#consulta-vet,
+#hospedagem{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.img-conteudo-inicio{
+    border-radius: 50%;
+    margin: 10px;
+
+    transition: box-shadow, transform 0.5s ease
+}
+
+.img-conteudo-inicio:hover{
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
