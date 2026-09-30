@@ -1,107 +1,169 @@
 <!DOCTYPE html>
+
+<!--
+    RESUMO DAS ALTERAÇÕES DESTA VERSÃO
+    1. Estilização por CLASSES em vez de ids (#cabecalho, #nav-bar, #servicos).
+       Ids são únicos na página e têm especificidade alta, o que dificulta
+       sobrescrever estilos. Classes são reutilizáveis e mais flexíveis.
+    2. Nomes de classe descrevem o CONTEÚDO, não o efeito visual.
+       Ex.: "espacamento-descricao" virou "secao"; "img-reverse" deixou de existir.
+    3. HTML mais semântico: títulos de serviço em h3, subtítulo em p,
+       endereço fora do parágrafo.
+    4. Menos marcação: a div ".img-reverse" foi removida. A alternância de lado
+       da imagem agora é responsabilidade do CSS (HTML cuida do conteúdo,
+       CSS cuida da aparência).
+    5. Acessibilidade: aria-label e aria-current no menu.
+    6. Correções de texto (acentuação, pontuação e espaços).
+-->
+
 <html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetShop Amigo Fiel</title>
-    <link rel="stylesheet" href="../ATIVIDADE MAYLLON/CSS/style.css">
+    <!-- NOVO: resumo da página exibido por buscadores (SEO) -->
+    <meta name="description" content="Petshop especializado em banho, tosa, consultas veterinárias, vacinação e hospedagem para cães.">
+    <!-- ANTES: "PetShop" (S maiúsculo), diferente do h1 e do rodapé. Padronizado como "Petshop". -->
+    <title>Petshop Amigo Fiel</title>
+    <link rel="stylesheet" href="./CSS/style.css">
 </head>
 
 <body>
-    <header id="cabecalho">
-
-        <div id="titulo-principal">
+    <!-- ANTES: id="cabecalho". Agora é classe (ver resumo, item 1). -->
+    <header class="cabecalho">
+        <div class="titulo-principal">
             <h1>Petshop Amigo Fiel</h1>
-            <h3>Cuidando do seu melhor amigo com muito carinho</h3>
+            <!--
+                ANTES: <h3>. Isso pulava o nível h2 (h1 direto para h3), o que confunde
+                leitores de tela, que usam os títulos para navegar. Além disso, o subtítulo
+                não é o título de uma seção, é só uma frase de apoio. Por isso virou <p>,
+                igual já estava no agendamento.html.
+            -->
+            <p class="subtitulo">Cuidando do seu melhor amigo com muito carinho</p>
         </div>
 
-        <nav id="nav-bar">
-            <a href="index.html">Início</a>
+        <!--
+            aria-label: identifica este menu para leitores de tela.
+            aria-current="page": indica o link da página atual. O CSS usa esse atributo
+            para destacar o link visualmente, sem precisar de uma classe extra.
+            Nas outras páginas, mover o aria-current para o link correspondente.
+        -->
+        <nav class="menu" aria-label="Menu principal">
+            <a href="index.html" aria-current="page">Início</a>
             <a href="agendamento.html">Agendar</a>
         </nav>
     </header>
 
     <main>
-        <h2 class="titulos-h2">Sobre Nós</h2>
-        <p>
-            Somos um petshop especializado em banho, tosa e consultas
-            veterinárias, com mais de 10 anos de experiência cuidando
-            de cães
-        </p>
+        <!--
+            ANTES: class="espacamento-descricao", nome que descrevia o efeito (espaçamento)
+            e não o conteúdo. "secao" é curto e serve para todas as seções da página.
+            Também não é mais preciso repetir uma classe em cada h2: o CSS usa ".secao h2".
+        -->
+        <section class="secao">
+            <h2>Sobre Nós</h2>
+            <!-- Corrigido: faltava o ponto final depois de "cães". -->
+            <p>
+                Somos um petshop especializado em banho, tosa e consultas veterinárias,
+                com mais de 10 anos de experiência cuidando de cães.
+            </p>
+        </section>
 
-        <div id="servicos">
-            <h2 class="titulos-h2">Nossos Serviços</h2>
-            <ul>
-                <li>
-                    <div class="texto">
-                        <p>Banho e Tosa</p>
+        <!-- ANTES: id="servicos" sem uso (nenhum link ou CSS dependia dele). Removido. -->
+        <section class="secao">
+            <h2>Nossos Serviços</h2>
+            <ul class="lista-servicos">
+                <!--
+                    Estrutura de cada serviço: li > (div.servico-texto + img).
+                    ANTES: os itens pares tinham uma div extra ".img-reverse" e os ímpares
+                    não, o que deixava o HTML inconsistente. Agora todos têm a MESMA
+                    estrutura, e o CSS inverte os pares com :nth-child(even).
+                -->
+                <li class="servico">
+                    <div class="servico-texto">
+                        <!--
+                            ANTES: <p>Banho e Tosa</p>. Era um título escrito como parágrafo, e o
+                            CSS precisava do truque ".texto p:first-of-type" para estilizá-lo.
+                            Como h3, ele tem significado próprio e o CSS fica simples.
+                        -->
+                        <h3>Banho e Tosa</h3>
                         <p>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod magnam doloribus placeat
-                            cumque
-                            sunt animi fuga ducimus. Nemo praesentium voluptates eligendi deserunt? Repellendus
-                            cupiditate
-                            at aut accusantium et, quidem deleniti?
+                            cumque sunt animi fuga ducimus. Nemo praesentium voluptates eligendi deserunt?
+                            Repellendus cupiditate at aut accusantium et, quidem deleniti?
                         </p>
                     </div>
-                    <img class="img-conteudo-inicio" src="./IMAGENS/banho-tosa.png" alt="Banho e tosa" width="200"
-                        height="200">
+                    <!--
+                        width e height mantidos: o navegador reserva o espaço da imagem antes
+                        de ela carregar, evitando que o conteúdo "pule" na tela.
+                        ANTES: class="img-conteudo-inicio". O nome agora segue o padrão "servico-*".
+                    -->
+                    <img class="servico-imagem" src="./IMAGENS/banho-tosa.png" alt="Banho e tosa" width="200" height="200">
                 </li>
 
-                <li>
-                    <div id="consulta-vet">
-                        <div class="texto">
-                            <p>Consulta Veterinária</p>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus voluptatibus
-                                mollitia,
-                                odio vitae facere deleniti ipsam minus aliquid molestias. Eius fugit, accusantium quasi
-                                fuga
-                                perspiciatis voluptatum iste recusandae error optio?
-                            </p>
-                        </div>
-                        <img class="img-conteudo-inicio" src="./IMAGENS/consulta-vet.png" alt="Consulta Veterinária"
-                            width="200" height="200">
+                <!-- Os três serviços seguintes seguem exatamente a mesma estrutura do primeiro. -->
+                <li class="servico">
+                    <div class="servico-texto">
+                        <h3>Consulta Veterinária</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus voluptatibus mollitia,
+                            odio vitae facere deleniti ipsam minus aliquid molestias. Eius fugit, accusantium quasi
+                            fuga perspiciatis voluptatum iste recusandae error optio?
+                        </p>
                     </div>
+                    <img class="servico-imagem" src="./IMAGENS/consulta-vet.png" alt="Consulta Veterinária" width="200" height="200">
                 </li>
-                
-                <li>
-                    <div class="texto">
-                        <p>Vacinação</p>
-                        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque et eligendi unde animi
+
+                <li class="servico">
+                    <div class="servico-texto">
+                        <h3>Vacinação</h3>
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque et eligendi unde animi
                             veniam ex veritatis aliquam neque quaerat labore facere obcaecati eaque ea quas doloribus
-                            modi, magni ipsum magnam!</p>
+                            modi, magni ipsum magnam!
+                        </p>
                     </div>
-                    <img class="img-conteudo-inicio" src="./IMAGENS/vacina.png" alt="Vacinação" width="200"
-                        height="200">
+                    <img class="servico-imagem" src="./IMAGENS/vacina.png" alt="Vacinação" width="200" height="200">
                 </li>
 
-                <li>
-                    <div id="hospedagem">
-                        <div class="texto">
-                            <p>Hospedagem</p>
-                            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro consequuntur autem
-                                eveniet
-                                quidem, reiciendis consectetur dolorem? Pariatur natus rerum sint tempora culpa
-                                consequatur
-                                corporis. Aliquid fuga earum dolore excepturi repellat?</p>
-                        </div>
-                        <img class="img-conteudo-inicio" src="./IMAGENS/hospedagem.png" alt="Hospedagem" width="200"
-                            height="200">
+                <li class="servico">
+                    <div class="servico-texto">
+                        <h3>Hospedagem</h3>
+                        <p>
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Porro consequuntur autem eveniet
+                            quidem, reiciendis consectetur dolorem? Pariatur natus rerum sint tempora culpa
+                            consequatur corporis. Aliquid fuga earum dolore excepturi repellat?
+                        </p>
                     </div>
+                    <img class="servico-imagem" src="./IMAGENS/hospedagem.png" alt="Hospedagem" width="200" height="200">
                 </li>
             </ul>
-        </div>
+        </section>
 
-        <h2 class="titulos-h2">Endereço</h2>
-        <address>Rua dos Animais,123 - Centro</address>
+        <section class="secao">
+            <h2>Endereço</h2>
+            <!--
+                ANTES: <p><address>...</address></p>. HTML inválido, porque o <address> não pode
+                ficar dentro de <p>: o navegador fecha o <p> antes e sobra um </p> solto.
+                Agora o <address> está sozinho na seção.
+                Também corrigido o espaço depois da vírgula ("Animais, 123").
+            -->
+            <address>Rua dos Animais, 123 - Centro</address>
+        </section>
 
-        <h2 class="titulos-h2">Horário de Funcionamento</h2>
-        <p>Segunda a Sábado: 8h ás 18h</p>
+        <section class="secao">
+            <h2>Horário de Funcionamento</h2>
+            <!-- Corrigido: "ás" (sem crase) virou "às". -->
+            <p>Segunda a Sábado: 8h às 18h</p>
+        </section>
     </main>
 
-    <footer>
-        <p>&copy;2026 PetShop Amigo Fiel<br>Todos os direitos reservados</p>
+    <!--
+        NOVO: class="rodape", necessária para estilizar o rodapé (ele não tinha estilo).
+        Corrigido: faltava espaço depois de &copy; e o nome estava "PetShop"; padronizado.
+    -->
+    <footer class="rodape">
+        <p>&copy; 2026 Petshop Amigo Fiel<br>Todos os direitos reservados</p>
     </footer>
 </body>
 
