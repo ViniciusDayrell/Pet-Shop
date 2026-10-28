@@ -1,46 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
+    <!--
+        O viewport é o que faz o site se adaptar ao celular.
+        Sem essa linha, o celular mostra a página "encolhida", como se fosse um desktop,
+        e as classes responsivas do Bootstrap (col-md-6, por exemplo) não funcionam direito.
+    -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PetShop Amigo Fiel-Agendamento</title>
-</head>
-<body>
-     <header>
-        <h1>Petshop Amigo Fiel</h1>
-        <p>Cuidando do seu melhor amigo com muito carinho</p>
+    <title>PetShop Amigo Fiel - Agendamento</title>
 
-        <nav>
-            <a href="index.html">Início</a>
+    <!--
+        BOOTSTRAP via CDN
+        CDN é um servidor que hospeda o arquivo pronto. Em vez de baixar o Bootstrap,
+        a gente só aponta o link e o navegador busca o CSS pela internet.
+        (Isso significa que precisa de internet pra ver o estilo.)
+
+        ORDEM DOS LINKS IMPORTA:
+        o Bootstrap vem primeiro e o nosso style.css depois. Quando duas regras
+        brigam pela mesma coisa, a que vem por último vence (se tiverem o mesmo peso).
+        Assim, o CSS do aluno consegue sobrescrever o Bootstrap quando for preciso.
+    -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./CSS/style.css">
+</head>
+
+<body>
+    <!--
+        CABEÇALHO: é o mesmo do index.html, e o visual vem todo do style.css do aluno
+        (#cabecalho, #titulo-principal, #nav-bar). Aqui NÃO usamos Bootstrap.
+        Ponto bom pra mostrar: Bootstrap e CSS próprio convivem na mesma página.
+    -->
+    <header class="cabecalho">
+        <div class="titulo-principal">
+            <h1>Petshop Amigo Fiel</h1>
+            <!--
+                ANTES: <h3>. Isso pulava o nível h2 (h1 direto para h3), o que confunde
+                leitores de tela, que usam os títulos para navegar. Além disso, o subtítulo
+                não é o título de uma seção, é só uma frase de apoio. Por isso virou <p>,
+                igual já estava no agendamento.html.
+            -->
+            <p class="subtitulo">Cuidando do seu melhor amigo com muito carinho</p>
+        </div>
+
+        <!--
+            aria-label: identifica este menu para leitores de tela.
+            aria-current="page": indica o link da página atual. O CSS usa esse atributo
+            para destacar o link visualmente, sem precisar de uma classe extra.
+            Nas outras páginas, mover o aria-current para o link correspondente.
+        -->
+        <nav class="menu" aria-label="Menu principal">
+            <a href="index.html" aria-current="page">Início</a>
             <a href="agendamento.html">Agendar</a>
         </nav>
     </header>
 
     <main>
-        <h2>Agendar Horário de Atendimento</h2>
-        
+        <!--
+            Duas classes no mesmo elemento, cada uma de um "dono":
+            - titulos-h2 -> do CSS do aluno (o sublinhado preto)
+            - mb-4       -> do Bootstrap (margin-bottom: espaço embaixo do título)
+            As classes "utilitárias" do Bootstrap seguem o padrão:
+            m = margin, b = bottom, e o número (0 a 5) é o tamanho.
+        -->
+        <h2 class="titulos-h2 mb-4">Agendar Horário de Atendimento</h2>
+
+        <!--
+            action="" vazio: ao enviar, a página manda os dados pra ela mesma.
+            Por enquanto o formulário não "faz nada" com os dados. Isso entra
+            depois, com JavaScript ou back-end.
+        -->
         <form action="">
-            <label for="nomeAnimal">Nome do Animal</label><br>
-            <input type="text" id="nomeAnimal" name="nomeAnimal" required><br><br>
 
+            <!--
+                SISTEMA DE GRID DO BOOTSTRAP (a parte mais importante da aula)
+                A linha (row) é dividida em 12 colunas imaginárias.
+                - row : cria a linha
+                - g-3 : "gutter" (gap), o espaçamento entre as colunas e as linhas
+            -->
+            <div class="row g-3">
 
-            <label for="especie">Espécie</label><br>
-            <select name="especie" id="especie">
-                <option value="">Selecione</option>
-                <option value="cachorro">Cachorro</option>
-                <option value="gato">Gato</option>
-                <option value="outro">Outro</option>
-            </select><br><br>
+                <!--
+                    col-md-6 = "ocupe 6 das 12 colunas (metade) a partir da tela média (768px+)".
+                    Em telas menores (celular), a coluna ocupa a linha inteira
+                    e os campos ficam um embaixo do outro, sem escrever nenhum CSS.
+                    Dica de aula: reduzir a largura da janela pra ver isso acontecendo.
+                -->
+                <div class="col-md-6">
+                    <!--
+                        for="nomeAnimal" liga o label ao input pelo id.
+                        Clicar no texto "Nome do Animal" já foca no campo.
+                        - form-label   -> estilo do texto do label (espaçamento embaixo)
+                        - form-control -> estilo do campo: largura 100%, borda arredondada,
+                                          espaçamento interno e destaque azul ao clicar
+                        - required     -> validação do próprio HTML (não é do Bootstrap)
+                        - name         -> nome com que o dado é enviado no formulário
+                    -->
+                    <label for="nomeAnimal" class="form-label">Nome do Animal</label>
+                    <input type="text" class="form-control" id="nomeAnimal" name="nomeAnimal" required>
+                </div>
 
-            <label for="nomeDono">Nome do Dono</label><br>
-            <input type="text" name="nomeDono" id="nomeDono" required><br><br>
+                <div class="col-md-6">
+                    <label for="especie" class="form-label">Espécie</label>
+                    <!-- O select tem classe própria: form-select (o form-control é pra inputs) -->
+                    <select class="form-select" name="especie" id="especie">
+                        <option value="">Selecione</option>
+                        <option value="cachorro">Cachorro</option>
+                        <option value="gato">Gato</option>
+                        <option value="outro">Outro</option>
+                    </select>
+                </div>
 
-            <label for="email">Email</label><br>
-            <input type="email" name="email" id="email" required><br><br>
+                <div class="col-md-6">
+                    <label for="nomeDono" class="form-label">Nome do Dono</label>
+                    <input type="text" class="form-control" name="nomeDono" id="nomeDono" required>
+                </div>
 
-            <label for="horario">Horário Desejado</label><br>
-            <input type="datetime-local" name="horario" id="horario" required><br><br>
+                <div class="col-md-6">
+                    <label for="email" class="form-label">Email</label>
+                    <!-- type="email" faz o navegador validar o formato (precisa ter @) -->
+                    <input type="email" class="form-control" name="email" id="email" required>
+                </div>
+
+                <!--
+                    Como 5 campos em colunas de 6 formam 2 + 2 + 1,
+                    o último fica sozinho na metade esquerda da linha.
+                -->
+                <div class="col-md-6">
+                    <label for="horario" class="form-label">Horário Desejado</label>
+                    <input type="datetime-local" class="form-control" name="horario" id="horario" required>
+                </div>
+
+                <!--
+                    col-12 = as 12 colunas: ocupa a linha inteira (o botão fica numa linha só dele).
+                    - btn         -> classe base de qualquer botão do Bootstrap
+                    - btn-primary -> a cor (azul). Existem outras: btn-success, btn-danger...
+                    - type="submit" -> é o que envia o formulário (antes não havia botão)
+                -->
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Agendar</button>
+                </div>
+
+            </div>
         </form>
     </main>
+
+    <footer class="rodape">
+        <p>&copy; 2026 Petshop Amigo Fiel<br>Todos os direitos reservados</p>
+    </footer>
 </body>
+
 </html>
